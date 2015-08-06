@@ -21,7 +21,7 @@
 //#endif
 //
 
-#define SEVEN_SEGMENT_CODE_0      (0u\
+#define SEVEN_SEGMENT_CODE_0        (0u\
     |   SEVEN_SEGMENT_BIT_A \
     |   SEVEN_SEGMENT_BIT_B \
     |   SEVEN_SEGMENT_BIT_C \
@@ -30,12 +30,12 @@
     |   SEVEN_SEGMENT_BIT_F \
 )
 
-#define SEVEN_SEGMENT_CODE_1      (0u\
+#define SEVEN_SEGMENT_CODE_1        (0u\
     |   SEVEN_SEGMENT_BIT_B \
     |   SEVEN_SEGMENT_BIT_C \
 )
 
-#define SEVEN_SEGMENT_CODE_2      (0u\
+#define SEVEN_SEGMENT_CODE_2        (0u\
     |   SEVEN_SEGMENT_BIT_A \
     |   SEVEN_SEGMENT_BIT_B \
     |   SEVEN_SEGMENT_BIT_D \
@@ -43,7 +43,7 @@
     |   SEVEN_SEGMENT_BIT_G \
 )
 
-#define SEVEN_SEGMENT_CODE_3      (0u\
+#define SEVEN_SEGMENT_CODE_3        (0u\
     |   SEVEN_SEGMENT_BIT_A \
     |   SEVEN_SEGMENT_BIT_B \
     |   SEVEN_SEGMENT_BIT_C \
@@ -51,14 +51,14 @@
     |   SEVEN_SEGMENT_BIT_G \
 )
 
-#define SEVEN_SEGMENT_CODE_4      (0u\
+#define SEVEN_SEGMENT_CODE_4        (0u\
     |   SEVEN_SEGMENT_BIT_B \
     |   SEVEN_SEGMENT_BIT_C \
     |   SEVEN_SEGMENT_BIT_F \
     |   SEVEN_SEGMENT_BIT_G \
 )
 
-#define SEVEN_SEGMENT_CODE_5      (0u\
+#define SEVEN_SEGMENT_CODE_5        (0u\
     |   SEVEN_SEGMENT_BIT_A \
     |   SEVEN_SEGMENT_BIT_C \
     |   SEVEN_SEGMENT_BIT_D \
@@ -66,24 +66,8 @@
     |   SEVEN_SEGMENT_BIT_G \
 )
 
-#define SEVEN_SEGMENT_CODE_6      (0u\
+#define SEVEN_SEGMENT_CODE_6        (0u\
     |   SEVEN_SEGMENT_BIT_A \
-    |   SEVEN_SEGMENT_BIT_C \
-    |   SEVEN_SEGMENT_BIT_D \
-    |   SEVEN_SEGMENT_BIT_E \
-    |   SEVEN_SEGMENT_BIT_F \
-    |   SEVEN_SEGMENT_BIT_G \
-)
-
-#define SEVEN_SEGMENT_CODE_7      (0u\
-    |   SEVEN_SEGMENT_BIT_A \
-    |   SEVEN_SEGMENT_BIT_B \
-    |   SEVEN_SEGMENT_BIT_C \
-)
-
-#define SEVEN_SEGMENT_CODE_8      (0u\
-    |   SEVEN_SEGMENT_BIT_A \
-    |   SEVEN_SEGMENT_BIT_B \
     |   SEVEN_SEGMENT_BIT_C \
     |   SEVEN_SEGMENT_BIT_D \
     |   SEVEN_SEGMENT_BIT_E \
@@ -91,7 +75,23 @@
     |   SEVEN_SEGMENT_BIT_G \
 )
 
-#define SEVEN_SEGMENT_CODE_9      (0u\
+#define SEVEN_SEGMENT_CODE_7        (0u\
+    |   SEVEN_SEGMENT_BIT_A \
+    |   SEVEN_SEGMENT_BIT_B \
+    |   SEVEN_SEGMENT_BIT_C \
+)
+
+#define SEVEN_SEGMENT_CODE_8        (0u\
+    |   SEVEN_SEGMENT_BIT_A \
+    |   SEVEN_SEGMENT_BIT_B \
+    |   SEVEN_SEGMENT_BIT_C \
+    |   SEVEN_SEGMENT_BIT_D \
+    |   SEVEN_SEGMENT_BIT_E \
+    |   SEVEN_SEGMENT_BIT_F \
+    |   SEVEN_SEGMENT_BIT_G \
+)
+
+#define SEVEN_SEGMENT_CODE_9        (0u\
     |   SEVEN_SEGMENT_BIT_A \
     |   SEVEN_SEGMENT_BIT_B \
     |   SEVEN_SEGMENT_BIT_C \
@@ -99,10 +99,16 @@
     |   SEVEN_SEGMENT_BIT_F \
     |   SEVEN_SEGMENT_BIT_G \
 )
+
+#define SEVEN_SEGMENT_CODE_NONE     (0u | B00000000)
 
 // common cathode seven segment code
-#define CC7S_CODE_(N)   (SEVEN_SEGMENT_CODE_##N)
+#define CC7S_CODE(N)        (SEVEN_SEGMENT_CODE_##N)
+#define CC7S_CODE_(N,DOT)   ((DOT) ? (SEVEN_SEGMENT_CODE_##N | SEVEN_SEGMENT_BIT_DOT) : SEVEN_SEGMENT_CODE_##N)
+#define CC7S_CODE_NONE      (SEVEN_SEGMENT_CODE_NONE)
 // common cathode seven segment code
-#define CA7S_CODE_(N)   (~SEVEN_SEGMENT_CODE_##N)
+#define CA7S_CODE(N)        (~SEVEN_SEGMENT_CODE_##N)
+#define CA7S_CODE_(N,DOT)   (~CC7S_CODE_(N,DOT))
+#define CA7S_CODE_NONE      (~SEVEN_SEGMENT_CODE_NONE)
 
 #endif
