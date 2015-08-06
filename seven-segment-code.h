@@ -103,12 +103,18 @@
 #define SEVEN_SEGMENT_CODE_NONE     (0u | B00000000)
 
 // common cathode seven segment code
-#define CC7S_CODE(N)        (SEVEN_SEGMENT_CODE_##N)
-#define CC7S_CODE_(N,DOT)   ((DOT) ? (SEVEN_SEGMENT_CODE_##N | SEVEN_SEGMENT_BIT_DOT) : SEVEN_SEGMENT_CODE_##N)
-#define CC7S_CODE_NONE      (SEVEN_SEGMENT_CODE_NONE)
+#define CC7S_CODE_NONE              (SEVEN_SEGMENT_CODE_NONE)
+#define CC7S_CODE(N)                (SEVEN_SEGMENT_CODE_##N)
+#define CC7S_CODE_(N,DOT)           ((DOT) ? (SEVEN_SEGMENT_CODE_##N | SEVEN_SEGMENT_BIT_DOT) : SEVEN_SEGMENT_CODE_##N)
+#define CC7S_CODE_HAS_DOT(C)        ((C & SEVEN_SEGMENT_BIT_DOT) != 0)
+#define CC7S_CODE_WITH_DOT(C)       (C | SEVEN_SEGMENT_BIT_DOT)
+#define CC7S_CODE_WITHOUT_DOT(C)    (C & ~SEVEN_SEGMENT_BIT_DOT)
 // common cathode seven segment code
-#define CA7S_CODE(N)        (~SEVEN_SEGMENT_CODE_##N)
-#define CA7S_CODE_(N,DOT)   (~CC7S_CODE_(N,DOT))
-#define CA7S_CODE_NONE      (~SEVEN_SEGMENT_CODE_NONE)
+#define CA7S_CODE_NONE              (~SEVEN_SEGMENT_CODE_NONE)
+#define CA7S_CODE(N)                (~SEVEN_SEGMENT_CODE_##N)
+#define CA7S_CODE_(N,DOT)           (~CC7S_CODE_(N,DOT))
+#define CA7S_CODE_HAS_DOT(C)        ((C & SEVEN_SEGMENT_BIT_DOT) == 0)
+#define CA7S_CODE_WITH_DOT(C)       (C & ~SEVEN_SEGMENT_BIT_DOT)
+#define CA7S_CODE_WITHOUT_DOT(C)    (C | SEVEN_SEGMENT_BIT_DOT)
 
 #endif
