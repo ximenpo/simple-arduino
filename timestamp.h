@@ -66,4 +66,18 @@ private:
     volatile	timestamp_type		timestamp_begin_;		//	初始时间戳值
 };
 
+//
+//	定时器定时判断
+//
+template<typename STAMP_TYPE = unsigned long>
+struct	timestamp_timing {
+    STAMP_TYPE	start_timestamp;
+    STAMP_TYPE	current_timestamp;
+
+    bool	check_expired(double delta)const {
+        return	current_timestamp >= start_timestamp + delta;
+    }
+};
+
+
 #endif
