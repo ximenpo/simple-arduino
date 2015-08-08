@@ -13,8 +13,10 @@ inline  unsigned long   timestamp_tickcount() {
 //
 //	假设：GetTimestamp函数在49天内一定会被调用过一次
 //
+template<typename STAMP_TYPE = unsigned long>
 class	timestamp {
 public:
+    typedef STAMP_TYPE  timestamp_type;
     explicit	timestamp(unsigned long timestamp_begin = 0) {
         reset(timestamp_begin);
     }
@@ -60,8 +62,8 @@ private:
     volatile	unsigned long		tickcount_last_;		//	最后一次TickCount值
     volatile	unsigned long		tickcount_begin_;		//	初始TickCount值
 
-    volatile	unsigned long		timestamp_;				//	最后一次时间戳值
-    volatile	unsigned long		timestamp_begin_;		//	初始时间戳值
+    volatile	timestamp_type		timestamp_;				//	最后一次时间戳值
+    volatile	timestamp_type		timestamp_begin_;		//	初始时间戳值
 };
 
 #endif
