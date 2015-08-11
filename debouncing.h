@@ -4,35 +4,51 @@
 
 template<typename STAMP_TYPE = unsigned long>
 class  debouncing  : public procedure_context, timestamp_timing<STAMP_TYPE> {
-  public:
-    void  init(int pin, int expect) {
-      this->pin = pin;
-      this->expect  = expect;
-
-      pinMode(this->pin, INPUT);
+public:
+    debouncing() : pin(-1) {
     }
 
-    bool  update(STAMP_TYPE timestamp) {
-      this->current_timestamp = timestamp;
-      PROCEDURE_BEGIN_RUNLOOP(this);
+    void  init(int pin) {
+        this->pin = pin;
 
-      //  first trigger
-      PROCEDURE_WAIT_(digitalRead(this->pin) == this->expect, false);
-
-      //  second check
-      PROCEDURE_SLEEP_(this, 50, false);
-      if (digitalRead(this->pin) != this->expect) {
-        PROCEDURE_STOP_(false);
-      }
-
-      //  waiting for end.
-      PROCEDURE_WAIT_(digitalRead(this->pin) != this->expect, false);
-
-      PROCEDURE_END_(true);
+        pinMode(this->pin, INPUT);
     }
 
-  private:
+    bool  check_state(STAMP_TYPE timestamp, int expected_pin_state, unsigned delay = 50) {
+        this->current_timestamp = timestamp;
+        PROCEDURE_BEGIN_RUNLOOP(this);
+
+        //  first trigger
+        PROCEDURE_WAIT_(digitalRead(this->pin) == expected_pin_state, false);
+
+        //  second check
+        PROCEDURE_SLEEP_(this, delay, false);
+        if (digitalRead(this->pin) != expected_pin_state) {
+            PROCEDURE_STOP_(false);
+        }
+
+        PROCEDURE_END_(true);
+    }
+
+    bool  check_click(STAMP_TYPE timestamp, int expected_pin_state, unsigned delay = 50) {
+        this->current_timestamp = timestamp;
+        PROCEDURE_BEGIN_RUNLOOP(this);
+
+        //  first trigger
+        PROCEDURE_WAIT_(digitalRead(this->pin) == expected_pin_state, false);
+
+        //  second check
+        PROCEDURE_SLEEP_(this, delay, false);
+        if (digitalRead(this->pin) != expected_pin_state) {
+            PROCEDURE_STOP_(false);
+        }
+
+        //  waiting for end.
+        PROCEDURE_WAIT_(digitalRead(this->pin) != expected_pin_state, false);
+
+        PROCEDURE_END_(true);
+    }
+
+private:
     int   pin;
-    int   expect;
 };
-
