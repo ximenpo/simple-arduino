@@ -1,9 +1,12 @@
+#ifndef DEBOUNCING_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+#define DEBOUNCING_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+
 #include  <Arduino.h>
 #include  "procedure.h"
 #include  "timestamp.h"
 
 template<typename STAMP_TYPE = unsigned long>
-class  debouncing  : public procedure_context, timestamp_timing<STAMP_TYPE> {
+class  debouncing  : public procedure_context, private timestamp_timing<STAMP_TYPE> {
 public:
     debouncing() : pin(-1) {
     }
@@ -52,3 +55,5 @@ public:
 private:
     int   pin;
 };
+
+#endif
