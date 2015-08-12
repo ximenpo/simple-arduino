@@ -21,7 +21,7 @@ public:
 
     bool  check_periodic(STAMP_TYPE timestamp, unsigned interval) {
         this->current_timestamp = timestamp;
-        PROCEDURE_BEGIN_RUNLOOP(this);
+        PROCEDURE_BEGIN(this);
 
         for(;;) {
             PROCEDURE_SLEEP_(this, interval, false);
@@ -31,11 +31,11 @@ public:
         PROCEDURE_END_(true);
     }
 
-    bool  check_periodic(STAMP_TYPE timestamp, unsigned interval, unsigned times) {
+    bool  check_periodic(STAMP_TYPE timestamp, unsigned interval, int times) {
         this->current_timestamp = timestamp;
         PROCEDURE_BEGIN(this);
 
-        for(this->times = 0; this->times < times; this->times++) {
+        for(this->times = 0; (times < 0) || (this->times < times); this->times++) {
             PROCEDURE_SLEEP_(this, interval, false);
             PROCEDURE_YIELD_(true);
         }
