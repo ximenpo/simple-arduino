@@ -24,7 +24,10 @@ public:
         this->current_timestamp = timestamp;
         PROCEDURE_BEGIN_RUNLOOP(this);
 
-        PROCEDURE_SLEEP_(this, interval, false);
+        for(;;) {
+            PROCEDURE_SLEEP_(this, interval, false);
+            PROCEDURE_YIELD_(true);
+        }
 
         PROCEDURE_END_(true);
     }
@@ -35,6 +38,7 @@ public:
 
         for(this->times = 0; this->times < times; this->times++) {
             PROCEDURE_SLEEP_(this, interval, false);
+            PROCEDURE_YIELD_(true);
         }
 
         PROCEDURE_END_(true);
