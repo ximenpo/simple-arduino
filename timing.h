@@ -15,8 +15,9 @@ public:
         PROCEDURE_BEGIN(this);
 
         PROCEDURE_SLEEP_(this, interval, false);
+        PROCEDURE_YIELD_(true);
 
-        PROCEDURE_END_(true);
+        PROCEDURE_END_(false);
     }
 
     bool  check_periodic(STAMP_TYPE timestamp, unsigned interval) {
@@ -28,7 +29,7 @@ public:
             PROCEDURE_YIELD_(true);
         }
 
-        PROCEDURE_END_(true);
+        PROCEDURE_END_(false);
     }
 
     bool  check_periodic(STAMP_TYPE timestamp, unsigned interval, int times) {
@@ -40,7 +41,7 @@ public:
             PROCEDURE_YIELD_(true);
         }
 
-        PROCEDURE_END_(true);
+        PROCEDURE_END_(false);
     }
 
 private:
