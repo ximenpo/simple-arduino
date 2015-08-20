@@ -100,6 +100,10 @@
     |   SEVEN_SEGMENT_BIT_G \
 )
 
+#define SEVEN_SEGMENT_CODE_MINUS    (0u\
+    |   SEVEN_SEGMENT_BIT_G \
+)
+
 #define SEVEN_SEGMENT_CODE_NONE     (0u | B00000000)
 
 // common cathode seven segment code
